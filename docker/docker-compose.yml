@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  php:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+
+
+
+  node:
+    image: node:18
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+    command: npm run dev

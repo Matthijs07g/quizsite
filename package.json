@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "start-backend": "cd backend && php -S localhost:8000 -t public",
+        "start-frontend": "cd frontend && npm run dev",
+        "install": "cd frontend && npm install && cd ../backend && composer install",
+        "start-all": "cd frontend && npm run dev & cd ../backend && server:start"
+    }
+}
