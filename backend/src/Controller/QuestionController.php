@@ -17,7 +17,7 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    #[Route('/api/369', name:'369_question')]
+    #[Route('/api/369/{id}', name:'369_question')]
     public function getQuestion(string $id): JsonResponse
     {
         return new JsonResponse([
@@ -25,7 +25,7 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    #[Route('/api/opendeur', name:'opendeur_question')]
+    #[Route('/api/opendeur/{id}', name:'opendeur_question')]
     public function getOpenDeur(string $id): JsonResponse
     {
         return new JsonResponse([
@@ -33,7 +33,7 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    #[Route('/api/finale', name:'finale_question')]
+    #[Route('/api/finale/{id}', name:'finale_question')]
     public function getFinale(string $id): JsonResponse
     {
         return new JsonResponse([
@@ -41,7 +41,7 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    #[Route('/api/galerij', name:'galerij_question')]
+    #[Route('/api/galerij/{id}', name:'galerij_question')]
     public function getGalerij(string $id): JsonResponse
     {
         return new JsonResponse([
@@ -49,7 +49,7 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    #[Route('/api/ingelijst', name:'ingelijst_question')]
+    #[Route('/api/ingelijst/{id}', name:'ingelijst_question')]
     public function getIngelijst(string $id): JsonResponse
     {
         return new JsonResponse([
@@ -57,7 +57,7 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    #[Route('/api/puzzel', name:'puzzel_question')]
+    #[Route('/api/puzzel/{id}', name:'puzzel_question')]
     public function getPuzzel(string $id): JsonResponse
     {
         return new JsonResponse([
