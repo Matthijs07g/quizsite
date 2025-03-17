@@ -24,4 +24,44 @@ class QuestionController extends AbstractController
             'message' => 'Get 369 question with id ' . $id
         ]);
     }
+
+    #[Route('/api/opendeur', name:'opendeur_question')]
+    public function getOpenDeur(string $id): JsonResponse
+    {
+        return new JsonResponse([
+            'message' => 'Get OpenDeur question with id ' . $id
+        ]);
+    }
+
+    #[Route('/api/finale', name:'finale_question')]
+    public function getFinale(string $id): JsonResponse
+    {
+        return new JsonResponse([
+            'message' => 'Get Finale question with id ' . $id
+        ]);
+    }
+
+    #[Route('/api/galerij', name:'galerij_question')]
+    public function getGalerij(string $id): JsonResponse
+    {
+        return new JsonResponse([
+            'message' => 'Get Galerij question with id ' . $id
+        ]);
+    }
+
+    #[Route('/api/ingelijst', name:'ingelijst_question')]
+    public function getIngelijst(string $id): JsonResponse
+    {
+        return new JsonResponse([
+            'message' => 'Get Ingelijst question with id ' . $id
+        ]);
+    }
+
+    #[Route('/api/puzzel', name:'puzzel_question')]
+    public function getPuzzel(string $id): JsonResponse
+    {
+        return new JsonResponse([
+            'message' => 'Get Puzzel question with id ' . $id
+        ]);
+    }
 }
