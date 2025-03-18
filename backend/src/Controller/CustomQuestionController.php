@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Custom;
+namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,59 +9,29 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CustomQuestionController extends AbstractController
 {
-    #[Route('/api/custom/questions', name: 'api_custom_questions')]
+    private CustomQuestionRepository $customquestionRepository; //change to custom
+
+    public function __construct(CustomQuestionRepository $customquestionRepository) //change to custom
+    {
+        $this->customquestionRepository = $customquestionRepository;
+    }
+
+    #[Route('/api/custom/369', name: '369_allcustom', methods: ['GET'])]
     public function index(): JsonResponse
     {
-        return new JsonResponse([
-            'message' => 'Welcome to your new custom controller!'
-        ]);
+        $questions = $this->customquestionRepository->findAll();
+        return $this->json($questions);
     }
 
-    #[Route('/api/custom/369/{id}', name:'custom_369_question')]
+    #[Route('/api/custom/369/{id}', name:'369_custom', methods: ['GET'])]
     public function getQuestion(string $id): JsonResponse
     {
-        return new JsonResponse([
-            'message' => 'Get custom 369 question with id ' . $id
-        ]);
-    }
+        $question = $this->customquestionRepository->find($id);
+        
+        if (!$question) {
+            return $this->json(['error' => 'Question not found with this id:', $id], 404);
+        }
 
-    #[Route('/api/custom/opendeur/{id}', name:'custom_opendeur_question')]
-    public function getOpenDeur(string $id): JsonResponse
-    {
-        return new JsonResponse([
-            'message' => 'Get custom OpenDeur question with id ' . $id
-        ]);
-    }
-
-    #[Route('/api/custom/finale/{id}', name:'custom_finale_question')]
-    public function getFinale(string $id): JsonResponse
-    {
-        return new JsonResponse([
-            'message' => 'Get custom Finale question with id ' . $id
-        ]);
-    }
-
-    #[Route('/api/custom/galerij/{id}', name:'custom_galerij_question')]
-    public function getGalerij(string $id): JsonResponse
-    {
-        return new JsonResponse([
-            'message' => 'Get custom Galerij question with id ' . $id
-        ]);
-    }
-
-    #[Route('/api/custom/ingelijst/{id}', name:'custom_ingelijst_question')]
-    public function getIngelijst(string $id): JsonResponse
-    {
-        return new JsonResponse([
-            'message' => 'Get custom Ingelijst question with id ' . $id
-        ]);
-    }
-
-    #[Route('/api/custom/puzzel/{id}', name:'custom_puzzel_question')]
-    public function getPuzzel(string $id): JsonResponse
-    {
-        return new JsonResponse([
-            'message' => 'Get custom Puzzel question with id ' . $id
-        ]);
+        return $this->json($question);
     }
 }
