@@ -24,7 +24,7 @@ class Question
         return $this->id;
     }
 
-    public function getvraag(): ?string
+    public function getVraag(): ?string
     {
         return $this->vraag;
     }

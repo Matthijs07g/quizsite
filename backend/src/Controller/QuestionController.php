@@ -41,6 +41,22 @@ class QuestionController extends AbstractController
         return $this->json($question);
     }
 
+    #[Route('/api/369/random', name: '369_random_question', methods: ['GET'])]
+    public function getRandomQuestion(): JsonResponse
+    {
+        $question = $this->questionRepository->getRandomQuestion();
+
+        dump($question);
+        
+        if (!$question) {
+            return $this->json(['error' => 'No questions found'], 404);
+        }
+
+        return $this->json($question);
+    }
+
+
+
     #[Route('/api/369', name: '369_create_question', methods: ['POST'])]
     public function createQuestion(Request $request): JsonResponse
     {
