@@ -45,18 +45,25 @@ class QuestionRepository extends ServiceEntityRepository
 
     public function getRandomQuestion(): ?Question
     {
+        // First get the total count of questions
+        $total = $this->createQueryBuilder('q')
+            ->select('COUNT(q.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        if ($total === 0) {
+            return null;
+        }
+
+        // Get a random offset
+        $offset = rand(0, $total - 1);
+
+        // Get the question at the random offset
         $query = $this->createQueryBuilder('q')
-        ->orderBy('RAND()')
-        ->setMaxResults(1)
-        ->getQuery();
-    
-        // Add these debug lines
-        $sql = $query->getSQL();
-        dump($sql); // This will show the actual SQL query being executed
-        
-        $result = $query->getOneOrNullResult();
-        dump($result); // This will show what was returned
-        
-        return $result;
+            ->setFirstResult($offset)
+            ->setMaxResults(1)
+            ->getQuery();
+
+        return $query->getOneOrNullResult();
     }
 }
