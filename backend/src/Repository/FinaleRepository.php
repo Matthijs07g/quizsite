@@ -6,6 +6,7 @@ use App\Entity\Finale;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
  * @extends ServiceEntityRepository<Finale>
  */
@@ -16,28 +17,27 @@ class FinaleRepository extends ServiceEntityRepository
         parent::__construct($registry, Finale::class);
     }
 
-    //    /**
-    //     * @return Finale[] Returns an array of Finale objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('f')
-    //            ->andWhere('f.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('f.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function getRandomFinale(): ?Finale
+    {
+        // First get the total count of questions
+        $total = $this->createQueryBuilder('q')
+            ->select('COUNT(q.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
 
-    //    public function findOneBySomeField($value): ?Finale
-    //    {
-    //        return $this->createQueryBuilder('f')
-    //            ->andWhere('f.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if ($total === 0) {
+            return null;
+        }
+
+        // Get a random offset
+        $offset = rand(0, $total - 1);
+
+        // Get the question at the random offset
+        $query = $this->createQueryBuilder('q')
+            ->setFirstResult($offset)
+            ->setMaxResults(1)
+            ->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
 }
