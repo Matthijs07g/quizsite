@@ -1,15 +1,15 @@
 @import './base.css';
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: none;
+  margin: 0;
+  padding: 1rem;
   font-weight: normal;
   background-color: var(--slimste-mens-black);
   color: var(--slimste-mens-white);
+  min-height: 100vh;
 }
 
-/* Add quiz-specific styles */
 .question-container {
   background-color: var(--slimste-mens-blue);
   border: 2px solid var(--slimste-mens-gold);
@@ -30,55 +30,20 @@
   text-align: center;
 }
 
-/* Add responsive design */
-@media (min-width: 1024px) {
-  .quiz-layout {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-  }
-}
-
 @media (hover: hover) {
   a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
   }
 }
 
 @media (min-width: 1024px) {
   body {
-    display: flex;
-    place-items: center;
+    display: block;
+    place-items: unset;
   }
 
   #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.question-appear {
-  animation: slideIn 0.5s ease-out;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
+    display: block;
+    padding: 1rem;
   }
 }
