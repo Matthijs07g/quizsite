@@ -5,14 +5,38 @@
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
+  background-color: var(--slimste-mens-black);
+  color: var(--slimste-mens-white);
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+/* Add quiz-specific styles */
+.question-container {
+  background-color: var(--slimste-mens-blue);
+  border: 2px solid var(--slimste-mens-gold);
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 1rem 0;
+}
+
+.score-display {
+  font-size: 2rem;
+  color: var(--slimste-mens-gold);
+  font-weight: bold;
+}
+
+.timer {
+  font-size: 3rem;
+  color: var(--slimste-mens-white);
+  text-align: center;
+}
+
+/* Add responsive design */
+@media (min-width: 1024px) {
+  .quiz-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
 }
 
 @media (hover: hover) {
@@ -31,5 +55,30 @@ a,
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.question-appear {
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }

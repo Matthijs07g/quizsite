@@ -36,6 +36,20 @@
   --section-gap: 160px;
 }
 
+:root {
+  /* Add De Slimste Mens colors */
+  --slimste-mens-blue: #003366;  /* Dark blue often used in the show */
+  --slimste-mens-gold: #FFD700;  /* Gold accents */
+  --slimste-mens-white: #FFFFFF; /* Clean white for text */
+  --slimste-mens-black: #000000; /* Deep black for backgrounds */
+  
+  /* Update semantic colors */
+  --color-background: var(--slimste-mens-black);
+  --color-text: var(--slimste-mens-white);
+  --color-heading: var(--slimste-mens-gold);
+  --color-accent: var(--slimste-mens-blue);
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--vt-c-black);
@@ -83,4 +97,12 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* Similar to show's typography */
+  letter-spacing: 0.5px;
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--slimste-mens-gold);
 }
