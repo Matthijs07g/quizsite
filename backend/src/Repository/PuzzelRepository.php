@@ -16,28 +16,27 @@ class PuzzelRepository extends ServiceEntityRepository
         parent::__construct($registry, Puzzel::class);
     }
 
-    //    /**
-    //     * @return Puzzel[] Returns an array of Puzzel objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function getRandomPuzzel(): ?Puzzel
+    {
+        // First get the total count of records
+        $total = $this->createQueryBuilder('q')
+            ->select('COUNT(q.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
 
-    //    public function findOneBySomeField($value): ?Puzzel
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if ($total === 0) {
+            return null;
+        }
+
+        // Get a random offset
+        $offset = rand(0, $total - 1);
+
+        // Get at the random offset
+        $query = $this->createQueryBuilder('q')
+            ->setFirstResult($offset)
+            ->setMaxResults(1)
+            ->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
 }

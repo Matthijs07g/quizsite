@@ -16,28 +16,27 @@ class OpenDeurRepository extends ServiceEntityRepository
         parent::__construct($registry, OpenDeur::class);
     }
 
-    //    /**
-    //     * @return OpenDeur[] Returns an array of OpenDeur objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('o.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function getRandomOpenDeur(): ?OpenDeur
+    {
+        // First get the total count of records
+        $total = $this->createQueryBuilder('q')
+            ->select('COUNT(q.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
 
-    //    public function findOneBySomeField($value): ?OpenDeur
-    //    {
-    //        return $this->createQueryBuilder('o')
-    //            ->andWhere('o.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if ($total === 0) {
+            return null;
+        }
+
+        // Get a random offset
+        $offset = rand(0, $total - 1);
+
+        // Get at the random offset
+        $query = $this->createQueryBuilder('q')
+            ->setFirstResult($offset)
+            ->setMaxResults(1)
+            ->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
 }

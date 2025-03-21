@@ -16,28 +16,27 @@ class IngelijstRepository extends ServiceEntityRepository
         parent::__construct($registry, Ingelijst::class);
     }
 
-    //    /**
-    //     * @return Ingelijst[] Returns an array of Ingelijst objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('i.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function getRandomIngelijst(): ?Ingelijst
+    {
+        // First get the total count of records
+        $total = $this->createQueryBuilder('q')
+            ->select('COUNT(q.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
 
-    //    public function findOneBySomeField($value): ?Ingelijst
-    //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if ($total === 0) {
+            return null;
+        }
+
+        // Get a random offset
+        $offset = rand(0, $total - 1);
+
+        // Get at the random offset
+        $query = $this->createQueryBuilder('q')
+            ->setFirstResult($offset)
+            ->setMaxResults(1)
+            ->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
 }
